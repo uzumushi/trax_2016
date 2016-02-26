@@ -13,7 +13,17 @@ void TRAX_ARRAY_KAI::initSearch(){
 	tilebuf=RPLUS;
 }
 
-MOVE TRAX_ARRAY_KAI::getPlace(){
+MOVE TRAX_ARRAY_KAI::getMove(){
+	if(tiles==0){
+		MOVE m(0,0,getTileChar());
+		switch(tilebuf){
+			case RPLUS:tilebuf=RSLSH;break;
+			case RSLSH:tilebuf=NULLNODE;break;
+			case NULLNODE:tilebuf=RPLUS;break;
+		}
+		return m;
+	}
+	
 	for(;ybuf<=FIELD_CENTER+bottom+1;ybuf++){
 		for(;xbuf<=FIELD_CENTER+right+1;xbuf++){
 			while(tilebuf)

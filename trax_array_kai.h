@@ -7,7 +7,7 @@ class TRAX_ARRAY_KAI:public TRAX_ARRAY{
 public:
 	TRAX_ARRAY_KAI();
 	void initSearch();
-	MOVE getPlace();
+	MOVE getMove();
 	void evaluateValue();
 	void setMyColor(TILE);
 	virtual bool placeMove(MOVE);
