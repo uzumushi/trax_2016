@@ -17,8 +17,8 @@ int main(){
 	for(int i=1;array.getValue()==0;i++){
 		int N=rand()%(i*4);
 		for(int j=0;j<N;j++){
-			mo=array.getPlace();
-			if(!mo.tile)mo=array.getPlace();
+			mo=array.getMove();
+			if(!mo.tile)mo=array.getMove();
 		}
 		placeTest(array,mo.exchangeToNotation());
 	}
