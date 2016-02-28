@@ -12,7 +12,8 @@ public:
 	MOVE(COORDINATE=0,COORDINATE=0,TILE='*');
 	void operator=(const string&);
 	std::string exchangeToNotation();
-
+	bool operator==(const MOVE&);
+	
 	/***variable***/
 	COORDINATE x;
 	COORDINATE y;

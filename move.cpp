@@ -54,6 +54,10 @@ string MOVE::exchangeToNotation(){
 	return str;
 }
 
+bool MOVE::operator==(const MOVE& obj){
+	return x==obj.x && y==obj.y && tile==obj.tile;
+}
+
 ostream& operator<<(ostream& stream, const MOVE& m){
 	stream << "X:" << (int)m.x << ", Y:" << (int)m.y << ", Tile:" << m.tile;
 	return stream;
