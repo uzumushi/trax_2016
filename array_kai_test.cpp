@@ -19,6 +19,7 @@ int main(){
 		for(int j=0;j<N;j++){
 			mo=array.getMove();
 			if(!mo.tile)mo=array.getMove();
+			cout<<mo<<endl;
 		}
 		placeTest(array,mo.exchangeToNotation());
 	}
@@ -28,7 +29,6 @@ int main(){
 bool placeTest(TRAX_ARRAY_KAI& array,string move){
 	MOVE mo(move);
 	bool flag=array.placeMove(mo);
-	cout<<move<<endl;
 	array.printField();
 	return flag;
 }
