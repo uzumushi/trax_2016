@@ -131,7 +131,7 @@ inline void TRAX_ARRAY::placeElem(COORDINATE x,COORDINATE y,TILE tile){
 inline bool TRAX_ARRAY::checkMove(COORDINATE x,COORDINATE y,TILE tile,bool place_flag){
 	
 	if(tile==NULLNODE) return false;
-	if(getElem(x,y) || isIsolated(x,y) || isProhibited3(x,y)) return false;
+	if(getElem(x,y) || isIsolated(x,y) || isProhibited3(x,y)||!isConnected(x,y,tile)) return false;
 	else{
 		TRAX_ARRAY array_buf;
 		array_buf.copyArray(*this);
