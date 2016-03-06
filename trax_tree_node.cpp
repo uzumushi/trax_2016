@@ -48,7 +48,6 @@ bool TRAX_TREE_NODE::makeChildren(bool modeflag){
 			children.push_back(nodebuf);
 			break;
 		}
-		cout<<mo<<endl;
 	}
 	delete field;
 	return true;
