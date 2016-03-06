@@ -39,7 +39,7 @@ void MOVE::operator=(const string& m){
 	}
 }
 
-string MOVE::exchangeToNotation(){
+string MOVE::exchangeToNotation() const{
 	string str;
 	stringstream ss;
 	COORDINATE xx=x;
@@ -54,7 +54,7 @@ string MOVE::exchangeToNotation(){
 	return str;
 }
 
-bool MOVE::operator==(const MOVE& obj){
+bool MOVE::operator==(const MOVE& obj) const{
 	return x==obj.x && y==obj.y && tile==obj.tile;
 }
 

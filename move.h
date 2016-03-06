@@ -11,8 +11,8 @@ public:
 	MOVE(const string&);
 	MOVE(COORDINATE=0,COORDINATE=0,TILE='*');
 	void operator=(const string&);
-	std::string exchangeToNotation();
-	bool operator==(const MOVE&);
+	std::string exchangeToNotation() const;
+	bool operator==(const MOVE&) const;
 	
 	/***variable***/
 	COORDINATE x;
