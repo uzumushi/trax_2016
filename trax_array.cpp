@@ -62,7 +62,7 @@ bool TRAX_ARRAY::placeMove(MOVE mo){
 }
 
 //debug function
-void TRAX_ARRAY::printField(bool flag){
+void TRAX_ARRAY::printField(bool flag) const{
 	ostream* ost;
 	if(!flag) ost=&cout;
 	else ost=&cerr;
@@ -95,22 +95,22 @@ void TRAX_ARRAY::printField(bool flag){
 	(*ost)<<endl;
 }
 
-bool TRAX_ARRAY::checkWLine(){
+bool TRAX_ARRAY::checkWLine() const{
 	return wline;
 }
-bool TRAX_ARRAY::checkRLine(){
+bool TRAX_ARRAY::checkRLine() const{
 	return rline;
 }
-bool TRAX_ARRAY::checkWLoop(){
+bool TRAX_ARRAY::checkWLoop() const{
 	return wloop;
 }
-bool TRAX_ARRAY::checkRLoop(){
+bool TRAX_ARRAY::checkRLoop() const{
 	return rloop;
 }
 
 /*****private functions*****/
 //field operators
-inline TILE TRAX_ARRAY::getElem(COORDINATE x,COORDINATE y){
+inline TILE TRAX_ARRAY::getElem(COORDINATE x,COORDINATE y) const{
 	return field[x][y];
 }
 
@@ -144,11 +144,11 @@ inline bool TRAX_ARRAY::checkMove(COORDINATE x,COORDINATE y,TILE tile,bool place
 }
 
 //field checkers
-inline bool TRAX_ARRAY::isIsolated(COORDINATE x,COORDINATE y){
+inline bool TRAX_ARRAY::isIsolated(COORDINATE x,COORDINATE y) const{
 	return tiles&&!(getElem(x-1,y)||getElem(x,y-1)||getElem(x+1,y)||getElem(x,y+1));
 }
 
-inline bool TRAX_ARRAY::isProhibited3(COORDINATE x,COORDINATE y){
+inline bool TRAX_ARRAY::isProhibited3(COORDINATE x,COORDINATE y) const{
 	char white=0,red=0;
 	if(LTILE(x,y)) LTILE(x,y)&RPOS ? red++:white++; 
 	if(RTILE(x,y)) RTILE(x,y)&LPOS ? red++:white++;
@@ -158,7 +158,7 @@ inline bool TRAX_ARRAY::isProhibited3(COORDINATE x,COORDINATE y){
 	return false;
 }
 
-inline bool TRAX_ARRAY::isConnected(COORDINATE x,COORDINATE y,TILE tile){
+inline bool TRAX_ARRAY::isConnected(COORDINATE x,COORDINATE y,TILE tile) const{
 	if(UTILE(x,y) && (UTILE(x,y)&DPOS)>>D_SHIFT != (tile&UPOS)>>U_SHIFT)return false;
 	if(DTILE(x,y) && (DTILE(x,y)&UPOS)>>U_SHIFT != (tile&DPOS)>>D_SHIFT)return false;
 	if(LTILE(x,y) && (LTILE(x,y)&RPOS)>>R_SHIFT != (tile&LPOS)>>L_SHIFT)return false;
@@ -225,7 +225,7 @@ inline bool TRAX_ARRAY::traceLine(){
 	return found;
 }
 
-inline bool TRAX_ARRAY::traceLine(COORDINATE pos,bool dirflag){
+inline bool TRAX_ARRAY::traceLine(COORDINATE pos,bool dirflag) const{
 	COORDINATE x=left+FIELD_CENTER+1;
 	COORDINATE y=top+FIELD_CENTER+1;
 	TILE dir;
@@ -274,7 +274,7 @@ inline bool TRAX_ARRAY::traceLoop(COORDINATE x,COORDINATE y,TILE dir){
 	}while(getElem(xx,yy));
 	return found;	
 }
-inline void TRAX_ARRAY::traceField(COORDINATE* x,COORDINATE* y,TILE* dir){
+inline void TRAX_ARRAY::traceField(COORDINATE* x,COORDINATE* y,TILE* dir) const{
 	switch(getSameColorDir(*x,*y,*dir)){
 		case LPOS:(*x)--;*dir=RPOS;break;
 		case RPOS:(*x)++;*dir=LPOS;break;
@@ -284,21 +284,21 @@ inline void TRAX_ARRAY::traceField(COORDINATE* x,COORDINATE* y,TILE* dir){
 }
 
 //field accesser
-inline TILE TRAX_ARRAY::LTILE(COORDINATE x,COORDINATE y){
+inline TILE TRAX_ARRAY::LTILE(COORDINATE x,COORDINATE y) const{
 	return getElem(x-1,y);	
 }
-inline TILE TRAX_ARRAY::RTILE(COORDINATE x,COORDINATE y){
+inline TILE TRAX_ARRAY::RTILE(COORDINATE x,COORDINATE y) const{
 	return getElem(x+1,y);
 }
-inline TILE TRAX_ARRAY::UTILE(COORDINATE x,COORDINATE y){
+inline TILE TRAX_ARRAY::UTILE(COORDINATE x,COORDINATE y) const{
 	return getElem(x,y-1);
 }
-inline TILE TRAX_ARRAY::DTILE(COORDINATE x,COORDINATE y){
+inline TILE TRAX_ARRAY::DTILE(COORDINATE x,COORDINATE y) const{
 	return getElem(x,y+1);
 }
 
 //utilities
-inline TILE TRAX_ARRAY::exchangeMoveToTile(MOVE mo){
+inline TILE TRAX_ARRAY::exchangeMoveToTile(MOVE mo) const{
 	COORDINATE x=mo.x+left+FIELD_CENTER;
 	COORDINATE y=mo.y+top+FIELD_CENTER;
 	
@@ -333,7 +333,7 @@ inline TILE TRAX_ARRAY::exchangeMoveToTile(MOVE mo){
 
 }
 
-inline TILE TRAX_ARRAY::getSameColorDir(COORDINATE x,COORDINATE y,TILE dir){
+inline TILE TRAX_ARRAY::getSameColorDir(COORDINATE x,COORDINATE y,TILE dir) const{
 	TILE color=getElem(x,y)&dir ? RED:WHITE;
 	if(dir!=LPOS&&(getElem(x,y)&LPOS)==(color&LPOS)){ return LPOS;	}
 	if(dir!=RPOS&&(getElem(x,y)&RPOS)==(color&RPOS)){ return RPOS;	}
