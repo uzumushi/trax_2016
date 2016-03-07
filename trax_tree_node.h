@@ -24,8 +24,8 @@ public:
 	list<TRAX_TREE_NODE>::const_iterator getFinalChild() const;
 	bool operator ==(const TRAX_TREE_NODE&) const;
 protected:
-	TRAX_ARRAY_KAI* makeMyArray(TRAX_ARRAY_KAI* = NULL);
-	bool isMyTurn(TILE,int);
+	TRAX_ARRAY_KAI* makeMyArray(TRAX_ARRAY_KAI* = NULL) const;
+	bool isMyTurn(TILE,int) const;
 	TRAX_TREE_NODE* parent;
 	MOVE mymove;
 	list<TRAX_TREE_NODE> children;

@@ -98,13 +98,13 @@ bool TRAX_TREE_NODE::operator==(const TRAX_TREE_NODE& obj) const{
 	return parent==obj.parent && mymove==obj.mymove;
 }
 
-inline TRAX_ARRAY_KAI* TRAX_TREE_NODE::makeMyArray(TRAX_ARRAY_KAI* array){
+inline TRAX_ARRAY_KAI* TRAX_TREE_NODE::makeMyArray(TRAX_ARRAY_KAI* array) const{
 	if(array==NULL) array=new TRAX_ARRAY_KAI;
 	if(parent!=NULL) makeMyArray(array);
 	array->placeMove(mymove);
 	return array;
 }
 
-inline bool TRAX_TREE_NODE::isMyTurn(TILE color,int depth){
+inline bool TRAX_TREE_NODE::isMyTurn(TILE color,int depth) const{
 	return (color==RED && depth%2==1)||(color==WHITE && depth%2==0);
 }
