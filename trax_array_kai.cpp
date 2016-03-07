@@ -81,7 +81,7 @@ void TRAX_ARRAY_KAI::copyArrayKai(TRAX_ARRAY_KAI& copyfield){
 	tilebuf=copyfield.tilebuf;
 }
 
-char TRAX_ARRAY_KAI::getValue(){
+char TRAX_ARRAY_KAI::getValue() const{
 	return value;	
 }
 
@@ -98,7 +98,7 @@ inline void TRAX_ARRAY_KAI::getNextTileBuf(){
 	}		
 }
 
-inline char TRAX_ARRAY_KAI::getTileChar(){
+inline char TRAX_ARRAY_KAI::getTileChar() const{
 	switch(tilebuf){
 		case RPLUS:return C_PLUS;
 		case WPLUS:return C_PLUS;

@@ -12,11 +12,11 @@ public:
 	void setMyColor(TILE);
 	virtual bool placeMove(MOVE);
 	void copyArrayKai(TRAX_ARRAY_KAI&);
-	char getValue();
+	char getValue() const;
 	
 protected:
 	void getNextTileBuf();
-	char getTileChar();
+	char getTileChar() const;
 	TILE mycolor;
 	char value;
 	COORDINATE xbuf,ybuf;
