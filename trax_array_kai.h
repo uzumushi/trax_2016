@@ -8,13 +8,13 @@ public:
 	TRAX_ARRAY_KAI();
 	void initSearch();
 	MOVE getMove();
-	void evaluateValue();
 	void setMyColor(TILE);
 	virtual bool placeMove(MOVE);
 	void copyArrayKai(TRAX_ARRAY_KAI&);
 	char getValue() const;
 	
 protected:
+	void evaluateValue();
 	void getNextTileBuf();
 	char getTileChar() const;
 	TILE mycolor;
