@@ -1,6 +1,6 @@
 all:	array_test.exe array_kai_test.exe tree_node_test.exe
 
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -O3
 
 ARRAY_SRCS = trax_array.cpp move.cpp
 ARRAY_KAI_SRCS = trax_array_kai.cpp $(ARRAY_SRCS)
