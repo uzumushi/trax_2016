@@ -16,8 +16,8 @@ TRAX_ARRAY::TRAX_ARRAY(){
 }
 
 void TRAX_ARRAY::initField(){
-	for(COORDINATE y=0;y<WIDTH;y++){
-		for(COORDINATE x=0;x<WIDTH;x++){
+	for(COORDINATE x=0;x<WIDTH;x++){
+		for(COORDINATE y=0;y<WIDTH;y++){
 			setElem(x,y,NULLNODE);
 		}
 	}
@@ -45,9 +45,8 @@ void TRAX_ARRAY::copyArray(TRAX_ARRAY& cpyfield){
 	wloop=cpyfield.wloop;
 	rline=cpyfield.rline;
 	wline=cpyfield.wline;
-	
-	for(COORDINATE y=top+FIELD_CENTER+1;y<=bottom+FIELD_CENTER;y++){
-		for(COORDINATE x=left+FIELD_CENTER+1;x<=right+FIELD_CENTER;x++){
+	for(COORDINATE x=left+FIELD_CENTER+1;x<=right+FIELD_CENTER;x++){
+		for(COORDINATE y=top+FIELD_CENTER+1;y<=bottom+FIELD_CENTER;y++){
 			setElem(x,y,cpyfield.getElem(x,y));
 		}
 	}

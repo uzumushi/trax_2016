@@ -11,7 +11,7 @@ class TRAX_ARRAY{
 public:
 	/***function***/
 	TRAX_ARRAY();
-	void initField();
+	virtual void initField();
 	void copyArray(TRAX_ARRAY&);
 	virtual bool placeMove(MOVE);
 	bool checkMove(MOVE);
