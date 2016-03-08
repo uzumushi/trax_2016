@@ -18,17 +18,19 @@ public:
 	TRAX_TREE_NODE(const MOVE&);
 	TRAX_TREE_NODE(TRAX_TREE_NODE*,MOVE);
 	bool makeChildren(bool);
-	bool makeDescendent(TILE,int,int);
+	void makeDescendent(TILE,int);
 	MOVE getMove() const;
 	list<TRAX_TREE_NODE>::const_iterator getFirstChild() const;
 	list<TRAX_TREE_NODE>::const_iterator getFinalChild() const;
 	bool operator ==(const TRAX_TREE_NODE&) const;
 protected:
-	TRAX_ARRAY_KAI* makeMyArray(TRAX_ARRAY_KAI* = NULL) const;
+	bool makeDescendent(TILE,int,int);
+	void makeMyArray() const;
 	bool isMyTurn(TILE,int) const;
 	TRAX_TREE_NODE* parent;
 	MOVE mymove;
 	list<TRAX_TREE_NODE> children;
+	static TRAX_ARRAY_KAI myfield;
 };
 
 #endif
