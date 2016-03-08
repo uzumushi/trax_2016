@@ -8,7 +8,7 @@ using namespace std;
 const bool ALPHA_FLAG=false;
 const bool BETA_FLAG=true;
 
-TRAX_ARRAY_KAI TRAX_TREE_NODE::myfield;
+TRAX_ARRAY_KAI myfield;
 
 TRAX_TREE_NODE::TRAX_TREE_NODE(){
 	parent=NULL;

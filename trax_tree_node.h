@@ -30,7 +30,6 @@ protected:
 	TRAX_TREE_NODE* parent;
 	MOVE mymove;
 	list<TRAX_TREE_NODE> children;
-	static TRAX_ARRAY_KAI myfield;
 };
 
 #endif
