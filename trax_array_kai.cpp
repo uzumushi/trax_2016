@@ -1,12 +1,21 @@
 #include "trax_array_kai.h"
 #include "tiledef.h"
 
+static const char TILES[]={RPLUS,WPLUS,RSLSH,WSLSH,RBSLS,WBSLS,NULLNODE};
+static const int TILES_NUM=sizeof(TILES);
 /*****public function*****/
 TRAX_ARRAY_KAI::TRAX_ARRAY_KAI(){
 	mycolor=WHITE;
 	value=0;
 	initSearch();
 }
+
+void TRAX_ARRAY_KAI::initField(){
+	TRAX_ARRAY::initField();
+	initSearch();
+	value=0;
+}
+
 void TRAX_ARRAY_KAI::initSearch(){
 	xbuf=FIELD_CENTER+left;
 	ybuf=FIELD_CENTER+top;
@@ -24,8 +33,8 @@ MOVE TRAX_ARRAY_KAI::getMove(){
 		return m;
 	}
 	
-	for(;ybuf<=FIELD_CENTER+bottom+1;ybuf++){
-		for(;xbuf<=FIELD_CENTER+right+1;xbuf++){
+	for(;xbuf<=FIELD_CENTER+right+1;xbuf++){
+		for(;ybuf<=FIELD_CENTER+bottom+1;ybuf++){
 			while(tilebuf)
 			{
 				if(field[xbuf][ybuf]!=NULLNODE)break;
@@ -38,7 +47,7 @@ MOVE TRAX_ARRAY_KAI::getMove(){
 			}
 			tilebuf=RPLUS;
 		}
-		xbuf=FIELD_CENTER+left;
+		ybuf=FIELD_CENTER+top;
 	}
 	MOVE m(0,0,NULLNODE);
 	initSearch();
@@ -95,7 +104,7 @@ inline void TRAX_ARRAY_KAI::getNextTileBuf(){
 		case RBSLS:tilebuf=WBSLS;break;
 		case WBSLS:tilebuf=NULLNODE;break;
 		case NULLNODE:tilebuf=RPLUS;break;
-	}		
+	}
 }
 
 inline char TRAX_ARRAY_KAI::getTileChar() const{

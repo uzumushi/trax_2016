@@ -6,6 +6,7 @@
 class TRAX_ARRAY_KAI:public TRAX_ARRAY{
 public:
 	TRAX_ARRAY_KAI();
+	void initField();
 	void initSearch();
 	MOVE getMove();
 	void setMyColor(TILE);
@@ -15,6 +16,7 @@ public:
 	
 protected:
 	void evaluateValue();
+	TILE getTile() const;
 	void getNextTileBuf();
 	char getTileChar() const;
 	TILE mycolor;
