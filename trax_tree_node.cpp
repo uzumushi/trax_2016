@@ -2,13 +2,14 @@
 #include "trax_array_kai.h"
 #include "tiledef.h"
 
+#include <vector>
 #include <iostream>
 using namespace std;
 
 const bool ALPHA_FLAG=false;
 const bool BETA_FLAG=true;
 
-TRAX_ARRAY_KAI myfield;
+static TRAX_ARRAY_KAI myfield;
 
 TRAX_TREE_NODE::TRAX_TREE_NODE(){
 	parent=NULL;
@@ -101,9 +102,19 @@ bool TRAX_TREE_NODE::operator==(const TRAX_TREE_NODE& obj) const{
 }
 
 inline void TRAX_TREE_NODE::makeMyArray() const{
-	if(parent!=NULL) parent->makeMyArray();
-	else myfield.initField();
-	myfield.placeMove(mymove);
+	vector<MOVE> movelist;
+	for(const TRAX_TREE_NODE* nodeptr=this;nodeptr!=NULL;nodeptr=nodeptr->parent){
+		movelist.push_back(nodeptr->mymove);
+	}
+	
+	myfield.initField();
+	for(vector<MOVE>::reverse_iterator itr=movelist.rbegin();itr!=movelist.rend();itr++){
+		myfield.placeMove(*itr);
+	}
+	//myfield.printField();
+	//if(parent!=NULL) parent->makeMyArray();
+	//else myfield.initField();
+	//myfield.placeMove(mymove);
 }
 
 inline bool TRAX_TREE_NODE::isMyTurn(TILE color,int depth) const{
