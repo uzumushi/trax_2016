@@ -25,8 +25,10 @@ protected:
 	/***function***/
 	//field operators
 	TILE getElem(COORDINATE,COORDINATE) const;
+	TILE *getElemPtr(COORDINATE,COORDINATE);
 	void setElem(COORDINATE,COORDINATE,TILE);
 	void placeElem(COORDINATE,COORDINATE,TILE);
+	void initElem();
 	bool checkMove(COORDINATE,COORDINATE,TILE,bool);
 	
 	//field checkers

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cstring>
 using namespace std;
 
 #include "trax_array.h"
@@ -16,11 +17,12 @@ TRAX_ARRAY::TRAX_ARRAY(){
 }
 
 void TRAX_ARRAY::initField(){
-	for(COORDINATE x=0;x<WIDTH;x++){
+	/*for(COORDINATE x=0;x<WIDTH;x++){
 		for(COORDINATE y=0;y<WIDTH;y++){
 			setElem(x,y,NULLNODE);
 		}
-	}
+	}*/
+	initElem();
 	left=0;
 	right=0;
 	bottom=0;
@@ -45,10 +47,16 @@ void TRAX_ARRAY::copyArray(TRAX_ARRAY& cpyfield){
 	wloop=cpyfield.wloop;
 	rline=cpyfield.rline;
 	wline=cpyfield.wline;
-	for(COORDINATE x=left+FIELD_CENTER+1;x<=right+FIELD_CENTER;x++){
+	/*for(COORDINATE x=left+FIELD_CENTER+1;x<=right+FIELD_CENTER;x++){
 		for(COORDINATE y=top+FIELD_CENTER+1;y<=bottom+FIELD_CENTER;y++){
 			setElem(x,y,cpyfield.getElem(x,y));
 		}
+	}*/
+	COORDINATE x_end=right+FIELD_CENTER;
+	COORDINATE cpy_pos=top+FIELD_CENTER+1;
+	COORDINATE cpy_width=bottom-top;
+	for(COORDINATE x=left+FIELD_CENTER+1;x<=x_end;x++){
+		memcpy(getElemPtr(x,cpy_pos),cpyfield.getElemPtr(x,cpy_pos),cpy_width);
 	}
 }
 
@@ -113,6 +121,10 @@ inline TILE TRAX_ARRAY::getElem(COORDINATE x,COORDINATE y) const{
 	return field[x][y];
 }
 
+inline TILE* TRAX_ARRAY::getElemPtr(COORDINATE x,COORDINATE y){
+	return &field[x][y];
+}
+
 inline void TRAX_ARRAY::setElem(COORDINATE x,COORDINATE y,TILE tile){
 	field[x][y]=tile;
 }
@@ -127,7 +139,11 @@ inline void TRAX_ARRAY::placeElem(COORDINATE x,COORDINATE y,TILE tile){
 	traceLoop(x,y);
 }
 
-inline bool TRAX_ARRAY::checkMove(COORDINATE x,COORDINATE y,TILE tile,bool place_flag){
+inline void TRAX_ARRAY::initElem(){
+	memset(field,0,WIDTH*WIDTH);
+}
+
+bool TRAX_ARRAY::checkMove(COORDINATE x,COORDINATE y,TILE tile,bool place_flag){
 	
 	if(tile==NULLNODE) return false;
 	if(getElem(x,y) || isIsolated(x,y) || isProhibited3(x,y)||!isConnected(x,y,tile)) return false;
