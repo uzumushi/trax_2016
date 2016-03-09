@@ -17,7 +17,7 @@ public:
 	TRAX_TREE_NODE();
 	TRAX_TREE_NODE(const MOVE&);
 	TRAX_TREE_NODE(TRAX_TREE_NODE*,MOVE);
-	bool makeChildren(bool);
+	char makeChildren(bool);
 	void makeDescendent(TILE,int);
 	MOVE getMove() const;
 	list<TRAX_TREE_NODE>::const_iterator getFirstChild() const;
@@ -30,6 +30,7 @@ protected:
 	TRAX_TREE_NODE* parent;
 	MOVE mymove;
 	list<TRAX_TREE_NODE> children;
+	bool winflag;
 };
 
 #endif

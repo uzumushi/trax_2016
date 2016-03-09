@@ -8,42 +8,43 @@ using namespace std;
 
 const bool ALPHA_FLAG=false;
 const bool BETA_FLAG=true;
+static const char MAKE_CHILDREN_LOSE=0;
+static const char MAKE_CHILDREN_WIN=1;
+static const char MAKE_CHILDREN_NORMAL=2;
 
 static TRAX_ARRAY_KAI myfield;
 
 TRAX_TREE_NODE::TRAX_TREE_NODE(){
 	parent=NULL;
+	winflag=false;
 }
 
 TRAX_TREE_NODE::TRAX_TREE_NODE(const MOVE& mo){
 	mymove=mo;
 	parent=NULL;
+	winflag=false;
 }
 
 TRAX_TREE_NODE::TRAX_TREE_NODE(TRAX_TREE_NODE* ptrparent,MOVE mo){
 	parent=ptrparent;
 	mymove=mo;
+	winflag=false;
 }
 
-bool TRAX_TREE_NODE::makeChildren(bool modeflag){
+char TRAX_TREE_NODE::makeChildren(bool modeflag){
 	makeMyArray();
 	MOVE mo;
 	
-	if(myfield.getValue()) return true;
-	
 	for(mo=myfield.getMove();mo.tile!=NULLNODE;mo=myfield.getMove()){
 		static TRAX_ARRAY_KAI fieldbuf;
-		fieldbuf.initField();
 		fieldbuf.copyArrayKai(myfield);
 		fieldbuf.placeMove(mo);
 		switch(fieldbuf.getValue()){
 		case -1:
-			if(modeflag==BETA_FLAG) return false;
+			if(modeflag==BETA_FLAG) return MAKE_CHILDREN_LOSE;
+			break;
 		case 1:
-			if(modeflag==ALPHA_FLAG){
-				TRAX_TREE_NODE nodebuf(this,mo);
-				children.push_back(nodebuf);
-			}
+			if(modeflag==ALPHA_FLAG) return MAKE_CHILDREN_WIN;
 			break;
 		case 0:
 			TRAX_TREE_NODE nodebuf(this,mo);
@@ -51,7 +52,7 @@ bool TRAX_TREE_NODE::makeChildren(bool modeflag){
 			break;
 		}
 	}
-	return true;
+	return MAKE_CHILDREN_NORMAL;
 }
 
 void TRAX_TREE_NODE::makeDescendent(TILE color,int height){
@@ -62,10 +63,16 @@ void TRAX_TREE_NODE::makeDescendent(TILE color,int height){
 inline bool TRAX_TREE_NODE::makeDescendent(TILE color,int maxheight,int height){
 	int depth=maxheight-height;
 	
-	if(isMyTurn(color,depth)) makeChildren(ALPHA_FLAG);
-	else if(!makeChildren(BETA_FLAG)) return false;
+	if(isMyTurn(color,depth)){
+		if(makeChildren(ALPHA_FLAG)==MAKE_CHILDREN_WIN){
+			winflag=true;
+			children.clear();
+		}
+	}
+	else if(makeChildren(BETA_FLAG)==MAKE_CHILDREN_LOSE) return false;
 	
 	if(!(depth<=maxheight-1)) return true;
+	
 	for(list<TRAX_TREE_NODE>::iterator iter=children.begin();iter!=children.end();){
 		if(!iter->makeDescendent(color,maxheight,height-1)){
 			if(isMyTurn(color,depth)){
@@ -77,11 +84,8 @@ inline bool TRAX_TREE_NODE::makeDescendent(TILE color,int maxheight,int height){
 		iter++;
 	}
 	
-	if(children.empty()){
-		makeMyArray();
-		if(myfield.getValue()==1) return true;
-		return false;
-	}
+	if(children.empty()&&!winflag) return false;
+	
 	return true;
 }
 
