@@ -14,7 +14,7 @@ int main(){
 	MOVE mo("@0+");
 	TRAX_TREE_NODE test(mo);
 	double starttime=get_dtime();
-	test.makeDescendent(WHITE,4);
+	test.makeDescendent(WHITE,5);
 	double endtime=get_dtime();
 	/*for(list<TRAX_TREE_NODE>::const_iterator itr=test.getFirstChild();itr!=test.getFinalChild();itr++){
 		cout<<(*itr).getMove()<<endl;
